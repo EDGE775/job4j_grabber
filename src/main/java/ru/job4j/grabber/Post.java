@@ -1,8 +1,10 @@
 package ru.job4j.grabber;
 
 import java.time.LocalDateTime;
+
 /**
  * Модель данных, представляющая собой ссылку на вакансию
+ *
  * @author Dmitry Khlapov
  */
 public class Post {
