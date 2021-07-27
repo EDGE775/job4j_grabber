@@ -4,15 +4,29 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Map;
 
 public class SqlRuDateTimeParser implements DateTimeParser {
 
     private static final Locale LOCALE = Locale.getDefault();
 
+    private static final Map<String, String> MONTHS = Map.ofEntries(
+            Map.entry("янв", "янв."),
+            Map.entry("фев", "февр."),
+            Map.entry("мар", "мар."),
+            Map.entry("апр", "апр."),
+            Map.entry("май", "мая"),
+            Map.entry("июн", "июн."),
+            Map.entry("июл", "июл."),
+            Map.entry("авг", "авг."),
+            Map.entry("сен", "сент."),
+            Map.entry("окт", "окт."),
+            Map.entry("ноя", "нояб."),
+            Map.entry("дек", "дек."));
+
     @Override
     public LocalDateTime parse(String parse) {
         String date = parse.toLowerCase();
-        String[] dateArray = date.split(" ");
         if (date.contains("сегодня")) {
             date = date.replace("сегодня", LocalDate.now()
                     .format(DateTimeFormatter.ofPattern("d MMM yy", LOCALE)));
@@ -21,11 +35,8 @@ public class SqlRuDateTimeParser implements DateTimeParser {
                     .minusDays(1)
                     .format(DateTimeFormatter.ofPattern("d MMM yy", LOCALE)));
         } else {
-            String month = dateArray[1];
-            month = month.equals("фев") ? "февр." : month.equals("сен") ? "сент."
-                    : month.equals("ноя") ? "нояб." : month.equals("май") ? "мая"
-                    : month.concat(".");
-            dateArray[1] = month;
+            String[] dateArray = date.split(" ");
+            dateArray[1] = MONTHS.get(dateArray[1]);
             date = String.join(" ", dateArray);
         }
         DateTimeFormatter dtf = DateTimeFormatter
@@ -35,6 +46,6 @@ public class SqlRuDateTimeParser implements DateTimeParser {
 
     public static void main(String[] args) {
         SqlRuDateTimeParser parser = new SqlRuDateTimeParser();
-        System.out.println(parser.parse("4 май 19, 21:19"));
+        System.out.println(parser.parse("4 Фев 19, 21:19"));
     }
 }
