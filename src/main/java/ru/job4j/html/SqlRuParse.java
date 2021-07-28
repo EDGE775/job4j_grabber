@@ -43,9 +43,14 @@ public class SqlRuParse implements Parse {
         Document doc = Jsoup.connect(link).get();
         Elements row = doc.select(".postslisttopic");
         for (Element td : row) {
-            Element href = td.child(0);
-            Post post = detail(href.attr("href"));
-            posts.add(post);
+            try {
+                Element href = td.child(0);
+                Post post = null;
+                post = detail(href.attr("href"));
+                posts.add(post);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return posts;
     }
