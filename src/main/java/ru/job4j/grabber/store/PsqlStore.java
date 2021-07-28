@@ -57,8 +57,8 @@ public class PsqlStore implements Store, AutoCloseable {
                     posts.add(new Post(
                             resultSet.getInt("id"),
                             resultSet.getString("name"),
-                            resultSet.getString("text"),
                             resultSet.getString("link"),
+                            resultSet.getString("text"),
                             resultSet.getTimestamp("created").toLocalDateTime()
                     ));
                 }
@@ -81,8 +81,8 @@ public class PsqlStore implements Store, AutoCloseable {
                     post = new Post(
                             resultSet.getInt("id"),
                             resultSet.getString("name"),
-                            resultSet.getString("text"),
                             resultSet.getString("link"),
+                            resultSet.getString("text"),
                             resultSet.getTimestamp("created").toLocalDateTime());
                 }
             }

@@ -45,8 +45,7 @@ public class SqlRuParse implements Parse {
         for (Element td : row) {
             try {
                 Element href = td.child(0);
-                Post post = null;
-                post = detail(href.attr("href"));
+                Post post = detail(href.attr("href"));
                 posts.add(post);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -67,19 +66,6 @@ public class SqlRuParse implements Parse {
     }
 
     public static void main(String[] args) throws IOException {
-//        int pagesCount = 0;
-//        for (int currentPage = 1; currentPage <= pagesCount; currentPage++) {
-//            Document doc = Jsoup.connect(String.format(
-//                    "https://www.sql.ru/forum/job-offers/%s", currentPage)).get();
-//            Elements row = doc.select(".postslisttopic");
-//            for (Element td : row) {
-//                Element href = td.child(0);
-//                System.out.println(href.attr("href"));
-//                System.out.println(href.text());
-//                System.out.println(td.nextElementSiblings().get(3).text());
-//            }
-//        }
-
         SqlRuParse parser = new SqlRuParse(new SqlRuDateTimeParser());
         List<Post> posts = parser.list("https://www.sql.ru/forum/job-offers");
         for (Post post : posts) {
