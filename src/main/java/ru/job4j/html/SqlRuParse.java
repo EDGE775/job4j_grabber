@@ -29,7 +29,7 @@ public class SqlRuParse implements Parse {
 
     private LocalDateTime parseDateOfCreationPost(Document doc) {
         Element date = doc.select(".msgFooter").first();
-        return new SqlRuDateTimeParser().parse(date.text().split(" \\[")[0]);
+        return dateTimeParser.parse(date.text().split(" \\[")[0]);
     }
 
     private String parseTitle(Document doc) {
